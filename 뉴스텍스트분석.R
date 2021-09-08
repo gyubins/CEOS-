@@ -31,22 +31,22 @@ txt2<-gsub("<.+?>|\t|\n", " ",txt2)
 txt2<-str_trim(txt2)
 txt2<-unique(txt2)
 txt2[1:6]
-#ÅØ½ºÆ® Á¤¸® ¿Ï·á
+#ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
 library(tidytext)
 library(KoNLP)
 word<-extractNoun(txt2)
 typeof(word)
 View(word)
-capture.output(word, file="´Ü¾î¸ñ·Ï.txt")
-#°¨Á¤ºÐ¼®
+capture.output(word, file="ï¿½Ü¾ï¿½ï¿½ï¿½.txt")
+#ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½
 remotes::install_github("mrchypark/KOSACR")
 
 library(KOSACR)
 
 KOSACR::get_kosac()
-KOSACR::sentiments$lex %>% table #»çÀü Á¾·ù 
+KOSACR::sentiments$lex %>% table #ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
-#http://kkma.snu.ac.kr/documents/?doc=postag Ç°»çÅÂ±ë ÂüÁ¶ 
+#http://kkma.snu.ac.kr/documents/?doc=postag Ç°ï¿½ï¿½ï¿½Â±ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 KOSACR::sentiments %>% filter(lex=="polarity") %>% select(value) %>% table
 pos.dic <- KOSACR::sentiments %>% filter(lex=="polarity") %>% filter(value %in% c("POS"))
 neg.dic <- KOSACR::sentiments %>% filter(lex=="polarity") %>% filter(value %in% c("NEG"))
@@ -66,7 +66,7 @@ for(wo in neg.dic){
 pos
 neg
 
-#¸í»ç¸¸À¸·Î´Â ÀÇ¹Ì¸¦ ¾Ë ¼ö°¡ ¾øÀÝ¾Æ..
+#ï¿½ï¿½ï¿½ç¸¸ï¿½ï¿½ï¿½Î´ï¿½ ï¿½Ç¹Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¾ï¿½..
 text<-as.data.frame(txt2)
 View(text)
 typeof(text)
@@ -75,9 +75,9 @@ View(text %>% unnest_tokens(input=txt2, output='word', token="ngrams", n=2) %>% 
 
 library(widyr)
 text %>% unnest_tokens(input=txt2, output='word', token="sentences")
-#µ¿½ÃÃâÇöºóµµ ÇØº¸ÀÚ..
+#ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½..
 
-#´ÙÀ½ Å©·Ñ¸µ
+#ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Ñ¸ï¿½
 basic_url_d <-'https://search.daum.net/search?w=news&DA=PGD&enc=utf8&cluster=y&cluster_page=number&q=%EC%9D%98%EC%82%AC&p=number'
 urls_d <- NULL
 for(x in 0:10){
@@ -107,5 +107,3 @@ text_d<-as.data.frame(txt2_d)
 View(text_d)
 View(text_d %>% unnest_tokens(input=txt2_d, output='word') %>% count(word, sort = TRUE))
 View(text_d %>% unnest_tokens(input=txt2_d, output='word', token="ngrams", n=2) %>% count(word, sort = TRUE))
-#tf-idf
-news_word <- 
